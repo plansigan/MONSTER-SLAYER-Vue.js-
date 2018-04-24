@@ -4,16 +4,26 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Page Title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+        <link href="css/vuetify.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     </head>
     <body>
         <div id="app">
 
-            <h1>{{Title}}</h1>
+            <v-app>
+                <v-content>
+                    <v-container>
+                        <h1>{{Title}}</h1>
+                    </v-container>
+                </v-content>
+            </v-app>
+
 
         </div>
-        <script src="vue.js"></script>
-        <script src="main.js"></script>
+        <script src="assets/vue.js"></script>
+        <script src="assets/vuetify.js"></script>
+        <script src="assets/main.js"></script>
     </body>
 </html>
