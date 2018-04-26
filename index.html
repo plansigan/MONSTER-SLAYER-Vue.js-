@@ -14,8 +14,43 @@
 
             <v-app>
                 <v-content>
-                    <v-container>
+                    <v-container grid-list-md text-xs-center>
                         <h1>{{Title}}</h1>
+                        <v-layout row wrap>
+                            <!-- NAMES -->
+                            <v-flex xs6 v-for="player in players">
+                                <v-container>
+                                    <h2>{{player}}</h2>
+                                </v-container>
+                            </v-flex>
+                            <v-flex xs6 v-for="healthBar in healthBars">
+                                <v-container>
+                                    <h2>{{healthBar}}</h2>
+                                </v-container>
+                            </v-flex>
+                            <v-flex>
+                                <v-card>
+                                    <v-flex>
+                                        <v-card v-if="Game == false" class="ma-2 py-2">
+                                            <button @click="Game = true"  >          
+                                                <h2>START NEW GAME</h2>
+                                            </button>
+                                        </v-card>
+                                        <template v-else>
+                                            <v-layout row wrap>
+                                                <v-flex v-for="skill in skills">
+                                                    <v-card xs3 class="ma-2 py-2">
+                                                        <button @click="skill.effect()">
+                                                            <h2>{{skill.name}}</h2>
+                                                        </button>
+                                                    </v-card>
+                                                </v-flex>
+                                            </v-layout>
+                                        </template>
+                                    </v-flex>
+                                </v-card>
+                            </v-flex>
+                        </v-layout>
                     </v-container>
                 </v-content>
             </v-app>
