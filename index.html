@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
         <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
         <link href="css/vuetify.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+        <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
     </head>
     <body>
         <div id="app">
@@ -40,7 +40,7 @@
                                             <v-layout row wrap>
                                                 <v-flex v-for="skill in skills">
                                                     <v-card xs3 class="ma-2 py-2">
-                                                        <button @click="skill.effect()">
+                                                        <button @click="wew(skill.name)">
                                                             <h2>{{skill.name}}</h2>
                                                         </button>
                                                     </v-card>
