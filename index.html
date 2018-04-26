@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
         <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
         <link href="css/vuetify.min.css" rel="stylesheet">
-        <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+        <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
     </head>
     <body>
         <div id="app">
@@ -25,8 +25,11 @@
                             </v-flex>
                             <v-flex xs6 v-for="healthBar in healthBars">
                                 <v-container>
-                                    <h2>{{healthBar}}</h2>
+                                    <v-progress-circular :size="100" :width="15" :rotate="-90" :value="healthBar" color="primary">
+                                         <h1>{{healthBar}}</h1>
+                                    </v-progress-circular>
                                 </v-container>
+                                
                             </v-flex>
                             <v-flex>
                                 <v-card>
@@ -40,7 +43,7 @@
                                             <v-layout row wrap>
                                                 <v-flex v-for="skill in skills">
                                                     <v-card xs3 class="ma-2 py-2">
-                                                        <button @click="wew(skill.name)">
+                                                        <button @click="skillEffect(skill.name)">
                                                             <h2>{{skill.name}}</h2>
                                                         </button>
                                                     </v-card>
@@ -54,8 +57,6 @@
                     </v-container>
                 </v-content>
             </v-app>
-
-
         </div>
         <script src="assets/vue.js"></script>
         <script src="assets/vuetify.js"></script>

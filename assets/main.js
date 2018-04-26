@@ -26,11 +26,14 @@ new Vue({
     },
     watch:{
         Monster(){
-            if(this.healthBars.Monster >= 0){
-                this.healthBars.You -= 5
-            } else {
-                this.Title = 'You Win!'
-            }
+            var health = this.healthBars
+            setTimeout(function(){
+                if (health.Monster >= 0) {
+                    health.You -= 5
+                } else {
+                    this.Title = 'You Win!'
+                }
+            },2000)
         },
         You(){
             if (this.healthBars.You <= 0){
@@ -39,7 +42,7 @@ new Vue({
         }
     },
     methods:{
-        wew(skillName) {
+        skillEffect(skillName) {
             var specialAttack = this.skills.specialAttack.Used; 
             if (skillName == 'Attack'){
                 if (this.healthBars.Monster >= 0) { 
@@ -52,10 +55,16 @@ new Vue({
                     this.skills.specialAttack.Used = 1
                 }
             }
+            if(skillName == 'Heal'){
+                this.healthBars.You += 7;
+            }
+            if (skillName == 'Give Up'){
+                this.Title = 'You Lose!'
+            }
         }
     },
     computed:{
-        //for watching Monster nad You variable from data object
+        //for watching Monster and You variable from data object
         Monster(){
             return this.healthBars.Monster;
         },
