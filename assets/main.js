@@ -4,6 +4,7 @@ new Vue({
         Title:"Monster Slayer!",
         players:['You','Monster'],
         Game: false,
+        histories:[],
         healthBars:{
             You:100,
             Monster:100
@@ -34,7 +35,9 @@ new Vue({
             var health = vr.healthBars
             setTimeout(function(){
                 if (health.Monster >= 0) {
-                    health.You -= vr.getRandomNumber(5,10)
+                    var damage = vr.getRandomNumber(5,10)
+                    health.You -= damage
+                    vr.histories.push(vr.pushToHistory(damage,'Monster','Attack'))
                 } else {
                     this.Title = 'You Win!'
                     vr.startAgain()
@@ -56,17 +59,23 @@ new Vue({
                 skills = this.skills
             if (skillName == 'Attack'){
                 if (healthBars.Monster >= 0) { 
-                    healthBars.Monster -= this.getRandomNumber(1,5)
+                    var damage = this.getRandomNumber(1,5)
+                    healthBars.Monster -= damage
+                    this.histories.push(this.pushToHistory(damage,'Player',skillName))
                 }
             }
             if (skillName == 'Special Attack' && specialAttack == 0){
                 if (healthBars.Monster >= 0) {
-                    healthBars.Monster -= this.getRandomNumber(20,50);
+                    var damage = this.getRandomNumber(20,50);
+                    healthBars.Monster -= damage
                     skills.specialAttack.Used = 1
+                    this.histories.push(this.pushToHistory(damage,'Player',skillName))
                 }
             }
             if(skillName == 'Heal'){
-                healthBars.You += this.getRandomNumber(7,10);
+                var heal = this.getRandomNumber(20,50);
+                healthBars.You += heal
+                this.histories.push(this.pushToHistory(heal,'Player',skillName))
             }
             if (skillName == 'Give Up'){
                 var data =this;
@@ -88,6 +97,22 @@ new Vue({
         },
         getRandomNumber(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+        pushToHistory(num,char,skill){
+            //PLAYER
+            if(char == 'Player' && skill == 'Attack'){
+                return 'Player hits Monster for ' + num + ' damage'
+            }
+            if(char == 'Player' && skill == 'Special Attack'){
+                return "Player used 'Special Attack' and hits Monster for " + num + " damage"
+            }
+            if(char == 'Player' && skill == 'Heal'){
+                return 'Player Heals for    ' + num + ' health'
+            }
+            //MONSTER
+            if(char == 'Monster'){
+                return 'Monster hits Player for ' + num + ' damage'
+            }
         }
     },
     computed:{
