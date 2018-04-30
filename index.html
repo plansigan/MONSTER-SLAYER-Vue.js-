@@ -42,7 +42,7 @@
                                         <template v-else>
                                             <v-layout row wrap>
                                                 <v-flex v-for="skill in skills">
-                                                    <v-card xs3 class="ma-2 py-2">
+                                                    <v-card xs3 class="ma-2 py-2" :style="{'background-color':skill.color}">
                                                         <button @click="skillEffect(skill.name)">
                                                             <h2>{{skill.name}}</h2>
                                                         </button>

@@ -10,57 +10,84 @@ new Vue({
         },
         skills:{
             attack:{
-                name: 'Attack'
+                name: 'Attack',
+                color:'Blue'
             },
             specialAttack:{
                 name: 'Special Attack',
-                Used:0
+                Used:0,
+                color:'Red'
             },
             heal:{
-                name:'Heal'
+                name:'Heal',
+                color:'Green'
             },
             giveUp:{
-                name:'Give Up'
+                name:'Give Up',
+                color:'Yellow'
             }
         }
     },
     watch:{
         Monster(){
-            var health = this.healthBars
+            var vr = this;
+            var health = vr.healthBars
             setTimeout(function(){
                 if (health.Monster >= 0) {
-                    health.You -= 5
+                    health.You -= vr.getRandomNumber(5,10)
                 } else {
                     this.Title = 'You Win!'
+                    vr.startAgain()
+                    
                 }
-            },2000)
+            },1000)
         },
         You(){
             if (this.healthBars.You <= 0){
                 this.Title = 'You Lose'
+                this.startAgain()
             }
         }
     },
     methods:{
         skillEffect(skillName) {
-            var specialAttack = this.skills.specialAttack.Used; 
+            var specialAttack = this.skills.specialAttack.Used,
+                healthBars = this.healthBars,
+                skills = this.skills
             if (skillName == 'Attack'){
-                if (this.healthBars.Monster >= 0) { 
-                    this.healthBars.Monster -= 3;
+                if (healthBars.Monster >= 0) { 
+                    healthBars.Monster -= this.getRandomNumber(1,5)
                 }
             }
             if (skillName == 'Special Attack' && specialAttack == 0){
-                if (this.healthBars.Monster >= 0) {
-                    this.healthBars.Monster -= 20;
-                    this.skills.specialAttack.Used = 1
+                if (healthBars.Monster >= 0) {
+                    healthBars.Monster -= this.getRandomNumber(20,50);
+                    skills.specialAttack.Used = 1
                 }
             }
             if(skillName == 'Heal'){
-                this.healthBars.You += 7;
+                healthBars.You += this.getRandomNumber(7,10);
             }
             if (skillName == 'Give Up'){
+                var data =this;
                 this.Title = 'You Lose!'
+                this.startAgain()
             }
+        },
+        startAgain(){
+            var specialAttack = this.skills.specialAttack.Used,
+                healthBars = this.healthBars,
+                skills = this.skills,
+                confirm = window.confirm('Do you wanna restart the game?');
+                if(confirm){
+                    healthBars.Monster = 100;
+                    healthBars.You = 100;
+                    skills.specialAttack.Used = 0
+                    this.Title = 'Monster Slayer!'
+                }
+        },
+        getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
         }
     },
     computed:{
