@@ -2,3 +2,12 @@
     background-color:red;
     width:10%;
 }
+.player-turn{
+    color:blue;
+    background-color: #e4e8ff;
+}
+
+.monster-turn{
+    color:red;
+    background-color: #ffc0c1;
+}

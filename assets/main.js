@@ -37,7 +37,11 @@ new Vue({
                 if (health.Monster >= 0) {
                     var damage = vr.getRandomNumber(5,10)
                     health.You -= damage
-                    vr.histories.push(vr.pushToHistory(damage,'Monster','Attack'))
+                    vr.histories.unshift({
+                        isPlayer:false,
+                        text:vr.pushToHistory(damage,'Monster')
+                        }
+                    )
                 } else {
                     this.Title = 'You Win!'
                     vr.startAgain()
@@ -61,7 +65,11 @@ new Vue({
                 if (healthBars.Monster >= 0) { 
                     var damage = this.getRandomNumber(1,5)
                     healthBars.Monster -= damage
-                    this.histories.push(this.pushToHistory(damage,'Player',skillName))
+                    this.histories.unshift({
+                        isPlayer:true,
+                        text:this.pushToHistory(damage,'Player',skillName)
+                        }
+                    )
                 }
             }
             if (skillName == 'Special Attack' && specialAttack == 0){
@@ -69,13 +77,21 @@ new Vue({
                     var damage = this.getRandomNumber(20,50);
                     healthBars.Monster -= damage
                     skills.specialAttack.Used = 1
-                    this.histories.push(this.pushToHistory(damage,'Player',skillName))
+                    this.histories.unshift({
+                        isPlayer:true,
+                        text:this.pushToHistory(damage,'Player',skillName)
+                        }
+                    )
                 }
             }
             if(skillName == 'Heal'){
                 var heal = this.getRandomNumber(20,50);
                 healthBars.You += heal
-                this.histories.push(this.pushToHistory(heal,'Player',skillName))
+                this.histories.unshift({
+                    isPlayer:true,
+                    text:this.pushToHistory(heal,'Player',skillName)
+                    }
+                )
             }
             if (skillName == 'Give Up'){
                 var data =this;
@@ -93,6 +109,7 @@ new Vue({
                     healthBars.You = 100;
                     skills.specialAttack.Used = 0
                     this.Title = 'Monster Slayer!'
+                    this.histories = []
                 }
         },
         getRandomNumber(min, max) {
@@ -107,7 +124,7 @@ new Vue({
                 return "Player used 'Special Attack' and hits Monster for " + num + " damage"
             }
             if(char == 'Player' && skill == 'Heal'){
-                return 'Player Heals for    ' + num + ' health'
+                return 'Player Heals for ' + num + ' health'
             }
             //MONSTER
             if(char == 'Monster'){

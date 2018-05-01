@@ -11,7 +11,6 @@
     </head>
     <body>
         <div id="app">
-
             <v-app>
                 <v-content>
                     <v-container grid-list-md text-xs-center>
@@ -55,8 +54,12 @@
                             </v-flex>
                             <v-flex xs12>
                                 <v-card>
-                                    <template xs12 v-for="history of histories">
-                                        <v-flex xs12>{{history}}</v-flex>
+                                    <template v-for="history of histories">
+                                        <v-flex xs12>
+                                            <h2 :class="{'player-turn':history.isPlayer,'monster-turn':!history.isPlayer}">
+                                                    {{history.text}}
+                                            </h2>
+                                        </v-flex>
                                     </template>
                                 </v-card>
                             </v-flex>
